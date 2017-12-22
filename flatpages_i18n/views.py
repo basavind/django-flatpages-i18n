@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.files.storage import default_storage
 from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404
@@ -48,7 +49,7 @@ def flatpage(request, url):
 
     kwargs = {
         '{0}__{1}'.format('url_%s' % language, 'exact'): url,
-        '{0}__{1}'.format('sites__id', 'exact'): settings.SITE_ID
+        '{0}__{1}'.format('sites__id', 'exact'): get_current_site(request).id
     }
 
     try:
